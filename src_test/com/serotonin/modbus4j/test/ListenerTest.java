@@ -2,6 +2,7 @@ package com.serotonin.modbus4j.test;
 
 import java.util.Random;
 
+import com.alibaba.fastjson.JSON;
 import com.serotonin.modbus4j.BasicProcessImage;
 import com.serotonin.modbus4j.ModbusFactory;
 import com.serotonin.modbus4j.ModbusSlaveSet;
@@ -34,9 +35,9 @@ public class ListenerTest {
         // Add a few slave process images to the listener.
         listener.addProcessImage(getModscanProcessImage(1));
         //        listener.addProcessImage(getModscanProcessImage(2));
-        listener.addProcessImage(getModscanProcessImage(3));
+//        listener.addProcessImage(getModscanProcessImage(3));
         //        listener.addProcessImage(getModscanProcessImage(5));
-        listener.addProcessImage(getModscanProcessImage(9));
+//        listener.addProcessImage(getModscanProcessImage(9));
 
         // When the "listener" is started it will use the current thread to run. So, if an exception is not thrown
         // (and we hope it won't be), the method call will not return. Therefore, we start the listener in a separate
@@ -53,25 +54,53 @@ public class ListenerTest {
             }
         }).start();
 
+        System.out.println("tcpslave" + JSON.toJSONString(listener));
+
         while (true) {
             synchronized (listener) {
                 listener.wait(200);
             }
 
-            for (ProcessImage processImage : listener.getProcessImages())
+//            System.out.println("========size======" + listener.getProcessImages().size());
+            for (ProcessImage processImage : listener.getProcessImages()) {
+//                System.out.println("========getCoil======" + processImage.getCoil(10));
                 updateProcessImage((BasicProcessImage) processImage);
+            }
+
         }
     }
 
     static void updateProcessImage(BasicProcessImage processImage) throws IllegalDataAddressException {
-        processImage.setInput(10, !processImage.getInput(10));
+//        System.out.println("========orf======"+ JSON.toJSONString(processImage));
+
+
+       /* processImage.setInput(10, !processImage.getInput(10));
         processImage.setInput(13, !processImage.getInput(13));
 
         processImage.setNumeric(RegisterRange.INPUT_REGISTER, 20, DataType.FOUR_BYTE_FLOAT, ir1Value += 0.01);
 
         short hr1Value = processImage.getNumeric(RegisterRange.HOLDING_REGISTER, 80, DataType.TWO_BYTE_BCD)
                 .shortValue();
-        processImage.setNumeric(RegisterRange.HOLDING_REGISTER, 80, DataType.TWO_BYTE_BCD, hr1Value + 1);
+        processImage.setNumeric(RegisterRange.HOLDING_REGISTER, 80, DataType.TWO_BYTE_BCD, hr1Value + 1);*/
+        processImage.setCoil(10, true);
+        processImage.setCoil(11, false);
+        processImage.setCoil(12, true);
+        processImage.setCoil(13, true);
+//        processImage.setCoil(14, false);
+//        processImage.setCoil(15, true);
+//        processImage.setCoil(16, false);
+//        processImage.setCoil(17, true);
+//        processImage.setCoil(18, true);
+//        processImage.setCoil(19, false);
+/*        processImage.setInput(10, false);
+        processImage.setInput(11, false);
+        processImage.setInput(12, true);
+        processImage.setInput(13, false);
+        processImage.setInput(14, true);*/
+        processImage.setHoldingRegister(10, (short) 1);
+        processImage.setHoldingRegister(11, (short) 10);
+        processImage.setHoldingRegister(12, (short) 100);
+        processImage.setHoldingRegister(13, (short) 1000);
     }
 
     static class BasicProcessImageListener implements ProcessImageListener {
@@ -97,20 +126,21 @@ public class ListenerTest {
         BasicProcessImage processImage = new BasicProcessImage(slaveId);
         //processImage.setAllowInvalidAddress(true);
         processImage.setInvalidAddressValue(Short.MIN_VALUE);
+//        processImage.setCoil(10, true);
 
-        processImage.setCoil(10, true);
+/*        processImage.setCoil(10, true);
         processImage.setCoil(11, false);
         processImage.setCoil(12, true);
         processImage.setCoil(13, true);
-        processImage.setCoil(14, false);
+        processImage.setCoil(14, false);*/
 
-        processImage.setInput(10, false);
+/*        processImage.setInput(10, false);
         processImage.setInput(11, false);
         processImage.setInput(12, true);
         processImage.setInput(13, false);
-        processImage.setInput(14, true);
+        processImage.setInput(14, true);*/
 
-        processImage.setBinary(16, true);
+   /*     processImage.setBinary(16, true);
         processImage.setBinary(10016, true);
 
         processImage.setHoldingRegister(10, (short) 1);
@@ -175,8 +205,7 @@ public class ListenerTest {
         processImage.setNumeric(RegisterRange.HOLDING_REGISTER, 50, DataType.EIGHT_BYTE_INT_UNSIGNED, 0);
 
         processImage.setString(RegisterRange.INPUT_REGISTER, 100, DataType.CHAR, 15, "Software de la Serotonin");
-
-        processImage.setExceptionStatus((byte) 151);
+      */  processImage.setExceptionStatus((byte) 151);
 
         // Add an image listener.
         processImage.addListener(new BasicProcessImageListener());

@@ -35,10 +35,10 @@ public class ListenerTest2 {
 
         while (true) {
             updateProcessImage1((BasicProcessImage) listener.getProcessImage(1));
-            updateProcessImage2((BasicProcessImage) listener.getProcessImage(2));
+//            updateProcessImage2((BasicProcessImage) listener.getProcessImage(2));
 
             synchronized (listener) {
-                listener.wait(5000);
+                listener.wait(1000);
             }
         }
     }

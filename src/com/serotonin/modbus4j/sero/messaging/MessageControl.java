@@ -2,6 +2,7 @@ package com.serotonin.modbus4j.sero.messaging;
 
 import java.io.IOException;
 
+import com.alibaba.fastjson.JSON;
 import com.serotonin.modbus4j.sero.io.StreamUtils;
 import com.serotonin.modbus4j.sero.log.BaseIOLog;
 import com.serotonin.modbus4j.sero.timer.SystemTimeSource;
@@ -23,7 +24,7 @@ public class MessageControl implements DataConsumer {
     private static int DEFAULT_RETRIES = 2;
     private static int DEFAULT_TIMEOUT = 500;
 
-    public boolean DEBUG = false;
+    public boolean DEBUG = true;
 
     private Transport transport;
     private MessageParser messageParser;

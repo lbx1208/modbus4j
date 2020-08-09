@@ -1,0 +1,8 @@
+modbus地址,标签点全名称,数据类型,变比参数,读写权限,测点描述
+1001,WT1.aaa_uINOUTStateAxis2bit2ST,BOOL,1,只读,单机并网状态
+1002,WT1.aaa_uINOUTStateAxis2bit13ST,BOOL,1,只读,单机并网状态
+1003,WT1.aaa_uINOUTStateAxis2bit14ST,BOOL,1,只读,单机并网状态
+1004,WT1.aaa_uINOUTStateAxis2bit15ST,BOOL,1,只读,单机并网状态
+1005,WT1.aaa_uINOUTStateAxis2bit1ST,BOOL,1,只读,单机并网状态
+1006,WT1.aaa_uINOUTStateAxis2bit2ST,BOOL,1,只读,单机并网状态
+

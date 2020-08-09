@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import com.alibaba.fastjson.JSON;
 import com.serotonin.modbus4j.sero.io.StreamUtils;
 
 public class Test {
@@ -22,6 +23,7 @@ public class Test {
             try {
                 this.s = s;
                 this.in = s.getInputStream();
+//                System.out.println(in.toString());
                 start();
             }
             catch (IOException e) {
@@ -31,14 +33,16 @@ public class Test {
         
         @Override
         public void run() {
-            byte[] b = new byte[1024];
+            byte[] b = new byte[10240];
             int readcount;
             try {
                 while (true) {
                     readcount = in.read(b);
+                    System.out.println(new String(b));
+
                     if (readcount == -1)
                         break;
-                    System.out.println(StreamUtils.dumpMessage(b, 0, readcount));
+                    System.out.println("输出"+StreamUtils.dumpMessage(b, 0, readcount));
                 }
             }
             catch (IOException e) {
